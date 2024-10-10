@@ -1,0 +1,27 @@
+/**
+	 * Simulates physiological values collection with potential failure
+	 * 
+	 * @return collected physiological values
+	 * @throws CollectErrorException when it is not possible to return the values
+	 */
+	private PhysiologicalValues collect() throws CollectErrorException {
+		Random r = new Random();
+
+		int heartRate = 0;
+		double temperature = 0.0;
+		int activity = 0;
+
+		heartRate = 60 + r.nextInt(20);
+
+		temperature = 101.5 + r.nextDouble()*2;
+		temperature = Double.parseDouble(String.format("%.2f", temperature).replace(',', '.'));
+
+		activity = r.nextInt(5) + 1;
+
+		PhysiologicalValues phy = new PhysiologicalValues(heartRate, temperature, activity);
+
+		if (Math.random() >= 0.9)
+			throw new CollectErrorException(phy.toString());
+
+		return phy;
+	}
